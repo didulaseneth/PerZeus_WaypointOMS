@@ -45,7 +45,7 @@ To run this project locally, you only need Docker installed on your machine.
 
 ### 1. Clone the repository:
 ```Bash
-git clone [https://github.com/didulaseneth/PerZeus_WaypointOMS.git](https://github.com/didulaseneth/PerZeus_WaypointOMS.git)
+git clone https://github.com/didulaseneth/PerZeus_WaypointOMS.git
 cd PerZeus_WaypointOMS
 ```
 ### 2. Start the complete stack (Frontend, Backend, Database, and Seed Data):  
