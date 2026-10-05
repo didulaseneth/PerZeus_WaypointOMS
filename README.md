@@ -3,7 +3,7 @@
 > An Enterprise-Grade Order Management System built for the **Tech-Triathlon Hackathon 2026**.
 
 ## 📌 Project Overview
-Waypoint OMS is a robust, scalable, and highly responsive Order Management System designed to streamline supply chain operations. The system provides dedicated, role-optimized interfaces for four distinct personas, ensuring seamless coordination from the warehouse to the final delivery destination. 
+Waypoint OMS is a robust, scalable, and highly responsive Order Management System designed to streamline supply chain operations. The system provides dedicated, role-optimized interfaces for four distinct personas, ensuring seamless coordination from the warehouse to the final delivery destination.
 
 To tackle real-world supply chain challenges like blind spots and network drops, our mobile interfaces are built as **Progressive Web Apps (PWAs)** with **Offline-First Capabilities**.
 
