@@ -16,7 +16,7 @@ We utilize a **Monorepo Architecture** to house both our frontend and backend, e
 * **React Router:** Role-based route guarding.
 * **PWA / Service Workers:** Offline caching and background synchronization.
 
-**Backend:**
+**Backend:** 
 * **Java Spring Boot (v3.x):** Enterprise-grade RESTful API.
 * **MongoDB:** Flexible NoSQL database for handling varied order structures.
 * **JWT:** Secure authentication and Role-Based Access Control (RBAC).
