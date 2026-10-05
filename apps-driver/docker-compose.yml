@@ -1,0 +1,33 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: waypoint-driver-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - driver_mongo_data:/data/db
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: waypoint-driver-api
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://mongo:27017/waypoint_driver
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: waypoint-driver-web
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  driver_mongo_data:

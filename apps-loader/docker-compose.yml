@@ -1,0 +1,33 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: waypoint-loader-mongo
+    ports:
+      - "27019:27017"
+    volumes:
+      - loader_mongo_data:/data/db
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: waypoint-loader-api
+    ports:
+      - "4002:4002"
+    environment:
+      - PORT=4002
+      - MONGO_URI=mongodb://mongo:27017/waypoint_loader
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: waypoint-loader-web
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  loader_mongo_data:

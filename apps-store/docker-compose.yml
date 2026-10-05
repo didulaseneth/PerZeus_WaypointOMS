@@ -1,0 +1,33 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: waypoint-sm-mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - sm_mongo_data:/data/db
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: waypoint-sm-api
+    ports:
+      - "4001:4001"
+    environment:
+      - PORT=4001
+      - MONGO_URI=mongodb://mongo:27017/waypoint_store_manager
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: waypoint-sm-web
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  sm_mongo_data:

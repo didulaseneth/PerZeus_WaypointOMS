@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   Theme tokens via data-theme on <html>
+   morning  – bright daylight
+   evening  – warm dusk
+   night    – deep night
+   ───────────────────────────────────────────── */
+
+:root,
+[data-theme="morning"] {
+  --wp-bg: #F7F9FB;
+  --wp-bg-elevated: #FFFFFF;
+  --wp-bg-muted: #EEF2F6;
+  --wp-bg-header: #FFFFFF;
+  --wp-text: #12181F;
+  --wp-text-secondary: #5F5F79;
+  --wp-text-muted: #9292B4;
+  --wp-border: #E5E7EB;
+  --wp-accent: #4D4DE9;
+  --wp-accent-soft: #EEF0FF;
+  --wp-selection: #4D4DE9;
+  --wp-scrollbar: rgba(150, 150, 180, 0.35);
+  --wp-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="evening"] {
+  --wp-bg: #1A1625;
+  --wp-bg-elevated: #241F33;
+  --wp-bg-muted: #2C2640;
+  --wp-bg-header: #1E1A2C;
+  --wp-text: #F5EDE0;
+  --wp-text-secondary: #C9B8A0;
+  --wp-text-muted: #9A8A78;
+  --wp-border: #3A3348;
+  --wp-accent: #E8A87C;
+  --wp-accent-soft: #3D2E22;
+  --wp-selection: #E8A87C;
+  --wp-scrollbar: rgba(200, 170, 130, 0.35);
+  --wp-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="night"] {
+  --wp-bg: #0B0F17;
+  --wp-bg-elevated: #151A22;
+  --wp-bg-muted: #1E2530;
+  --wp-bg-header: #12171F;
+  --wp-text: #E8EEF6;
+  --wp-text-secondary: #A0AEC0;
+  --wp-text-muted: #718096;
+  --wp-border: #2A3340;
+  --wp-accent: #7B8CFF;
+  --wp-accent-soft: #1A2035;
+  --wp-selection: #7B8CFF;
+  --wp-scrollbar: rgba(120, 140, 180, 0.35);
+  --wp-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--wp-bg);
+    color: var(--wp-text);
+    font-family: Indivisible, Poppins, ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  ::selection {
+    background-color: var(--wp-selection);
+    color: #fff;
+  }
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: 24px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shake {
+  animation: shake 0.35s ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--wp-scrollbar);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 180, 0.55);
+}
+
+/* Evening warm overrides for common dark: utility classes */
+[data-theme="evening"] .dark\:bg-\[\#1E2530\] {
+  background-color: #241F33 !important;
+}
+[data-theme="evening"] .dark\:bg-\[\#151A22\] {
+  background-color: #1A1625 !important;
+}
+[data-theme="evening"] .dark\:text-\[\#F0E9DD\] {
+  color: #F5EDE0 !important;
+}
+[data-theme="evening"] .dark\:border-gray-800 {
+  border-color: #3A3348 !important;
+}
+[data-theme="evening"] .dark\:bg-gray-800,
+[data-theme="evening"] .dark\:bg-gray-800\/80,
+[data-theme="evening"] .dark\:bg-gray-800\/70 {
+  background-color: #2C2640 !important;
+}
+[data-theme="evening"] .dark\:hover\:bg-gray-800:hover,
+[data-theme="evening"] .dark\:hover\:bg-gray-700:hover {
+  background-color: #352F48 !important;
+}
+[data-theme="evening"] .dark\:text-amber-400 {
+  color: #E8A87C !important;
+}
+[data-theme="evening"] .dark\:bg-purple-950\/50,
+[data-theme="evening"] .dark\:bg-purple-950\/40,
+[data-theme="evening"] .dark\:bg-purple-950\/60 {
+  background-color: rgba(61, 46, 34, 0.7) !important;
+}
+[data-theme="evening"] .dark\:border-purple-800,
+[data-theme="evening"] .dark\:border-purple-900\/40 {
+  border-color: rgba(232, 168, 124, 0.35) !important;
+}
+
+/* Night cool deep overrides */
+[data-theme="night"] .dark\:bg-\[\#1E2530\] {
+  background-color: #151A22 !important;
+}
+[data-theme="night"] .dark\:bg-\[\#151A22\] {
+  background-color: #0B0F17 !important;
+}
+[data-theme="night"] .dark\:text-\[\#F0E9DD\] {
+  color: #E8EEF6 !important;
+}
+[data-theme="night"] .dark\:border-gray-800 {
+  border-color: #2A3340 !important;
+}
+[data-theme="night"] .dark\:text-amber-400 {
+  color: #7B8CFF !important;
+}

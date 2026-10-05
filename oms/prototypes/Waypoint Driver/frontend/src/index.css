@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray1 text-blackCustom font-sans antialiased;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/*
+  Typography helpers based on the Style Guide.
+  Do NOT @apply the same utility name as the class (e.g. .text-subtitle { @apply text-subtitle })
+  — that creates a circular dependency. Apply the underlying Tailwind tokens instead.
+*/
+@layer components {
+  .text-title {
+    @apply text-[32px] leading-[40px] font-[750];
+  }
+  .text-subtitle {
+    @apply text-[24px] leading-[32px] font-[750];
+  }
+  .text-heading {
+    @apply text-[20px] leading-[28px] font-[750];
+  }
+  .text-paragraph {
+    @apply text-[16px] leading-[24px] font-medium text-gray6;
+  }
+  .text-secondary {
+    @apply text-[14px] leading-[20px] font-medium text-gray5;
+  }
+  .text-small {
+    @apply text-[12px] leading-[16px] font-medium text-gray5;
+  }
+
+  /* ── Card & Shadow Utilities ── */
+  .shadow-card {
+    box-shadow: 0 2px 8px 0 rgba(1, 1, 56, 0.06), 0 1px 2px 0 rgba(1, 1, 56, 0.04);
+  }
+
+  .shadow-card-lg {
+    box-shadow: 0 8px 24px 0 rgba(1, 1, 56, 0.10), 0 2px 6px 0 rgba(1, 1, 56, 0.06);
+  }
+
+  .shadow-card-night {
+    box-shadow: 0 2px 12px 0 rgba(77, 77, 233, 0.15), 0 1px 3px 0 rgba(0,0,0,0.3);
+  }
+
+  /* ── Glass-morphism card ── */
+  .glass-card {
+    @apply bg-whiteCustom/10 backdrop-blur-sm border border-whiteCustom/20;
+  }
+
+  /* ── Primary button ── */
+  .btn-primary {
+    @apply bg-purplePrimary text-whiteCustom font-semibold rounded-2xl
+           active:scale-[0.97] transition-transform duration-150;
+  }
+
+  /* ── Pill badge ── */
+  .badge-pill {
+    @apply text-smallText font-semibold px-2.5 py-0.5 rounded-full;
+  }
+
+  /* ── Scrollbar hide ── */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

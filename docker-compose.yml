@@ -1,0 +1,109 @@
+# Waypoint Unified Platform
+# One MongoDB · One login · Dispatcher in OMS · Loader/Driver/Store → dedicated apps
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: waypoint-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - waypoint_mongo_data:/data/db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Core OMS backend (Spring Boot) — shared auth + domain API for all roles
+  backend:
+    build: ./oms/backend
+    container_name: waypoint-api
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: mongodb://mongo:27017/waypoint
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Main unified frontend (login + all role dashboards)
+  frontend:
+    build: ./oms/frontend
+    container_name: waypoint-web
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  driver-api:
+    build: ./apps-driver/backend
+    container_name: waypoint-driver-api
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: "4000"
+      MONGO_URI: mongodb://mongo:27017/waypoint_driver
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+  driver-web:
+    build: ./apps-driver/frontend
+    container_name: waypoint-driver-web
+    ports:
+      - "3000:80"
+    depends_on:
+      - driver-api
+    restart: unless-stopped
+
+  loader-api:
+    build: ./apps-loader/backend
+    container_name: waypoint-loader-api
+    ports:
+      - "4002:4002"
+    environment:
+      PORT: "4002"
+      MONGO_URI: mongodb://mongo:27017/waypoint_loader
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+  loader-web:
+    build: ./apps-loader/frontend
+    container_name: waypoint-loader-web
+    ports:
+      - "3002:80"
+    depends_on:
+      - loader-api
+    restart: unless-stopped
+
+  store-api:
+    build: ./apps-store/backend
+    container_name: waypoint-store-api
+    ports:
+      - "4001:4001"
+    environment:
+      PORT: "4001"
+      MONGO_URI: mongodb://mongo:27017/waypoint_store_manager
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+  store-web:
+    build: ./apps-store/frontend
+    container_name: waypoint-store-web
+    ports:
+      - "3001:80"
+    depends_on:
+      - store-api
+    restart: unless-stopped
+
+volumes:
+  waypoint_mongo_data:

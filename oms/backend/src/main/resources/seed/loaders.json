@@ -1,0 +1,98 @@
+[
+  {
+    "id": "LDR01",
+    "name": "Loader 01",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR02",
+    "name": "Loader 02",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR03",
+    "name": "Loader 03",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR04",
+    "name": "Loader 04",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR05",
+    "name": "Loader 05",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR06",
+    "name": "Loader 06",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR07",
+    "name": "Loader 07",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR08",
+    "name": "Loader 08",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR09",
+    "name": "Loader 09",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR10",
+    "name": "Loader 10",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR11",
+    "name": "Loader 11",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR12",
+    "name": "Loader 12",
+    "depot": "Peliyagoda",
+    "status": "available"
+  },
+  {
+    "id": "LDR13",
+    "name": "Loader 13",
+    "depot": "Kandy",
+    "status": "available"
+  },
+  {
+    "id": "LDR14",
+    "name": "Loader 14",
+    "depot": "Kandy",
+    "status": "available"
+  },
+  {
+    "id": "LDR15",
+    "name": "Loader 15",
+    "depot": "Kandy",
+    "status": "available"
+  },
+  {
+    "id": "LDR16",
+    "name": "Loader 16",
+    "depot": "Kandy",
+    "status": "available"
+  }
+]

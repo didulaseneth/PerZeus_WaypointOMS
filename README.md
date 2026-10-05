@@ -1,78 +1,86 @@
-# 🚀 Waypoint Group OMS - Team PerZeus
+# Waypoint Unified Platform
 
-> An Enterprise-Grade Order Management System built for the **Tech-Triathlon Hackathon 2026**.
+**One login → each role opens their dedicated system**
 
-## 📌 Project Overview
-Waypoint OMS is a robust, scalable, and highly responsive Order Management System designed to streamline supply chain operations. The system provides dedicated, role-optimized interfaces for four distinct personas, ensuring seamless coordination from the warehouse to the final delivery destination. 
+| Role | After login opens | URL |
+|------|-------------------|-----|
+| **Dispatcher** | Core OMS dispatcher workspace | http://localhost:5173/dispatcher |
+| **Loader** | Polished Loader app | http://localhost:3002 |
+| **Driver** | Polished Driver app | http://localhost:3000 |
+| **Store Manager** | Polished Store Manager app | http://localhost:3001 |
 
-To tackle real-world supply chain challenges like blind spots and network drops, our mobile interfaces are built as **Progressive Web Apps (PWAs)** with **Offline-First Capabilities**.
+---
 
-## 🏗️ Architecture & Tech Stack
-We utilize a **Monorepo Architecture** to house both our frontend and backend, enabling rapid development and streamlined deployments during the hackathon.
+## Quick start
 
-**Frontend:**
-* **React.js (Vite):** Fast, modern UI development.
-* **TailwindCSS:** Rapid, utility-first styling for mobile-responsive designs.
-* **React Router:** Role-based route guarding.
-* **PWA / Service Workers:** Offline caching and background synchronization.
-
-**Backend (Integration in Progress):**
-* **Java Spring Boot (v3.x):** Enterprise-grade RESTful API.
-* **MongoDB:** Flexible NoSQL database for handling varied order structures.
-* **JWT:** Secure authentication and Role-Based Access Control (RBAC).
-
-## 👥 Supported Personas & Features
-1. **Dispatcher (Operations Dashboard):** Desktop-optimized view for allocating orders, tracking live delivery routes, and managing fleets.
-2. **Store Manager (Portal):** Desktop view to monitor incoming inventory, verify received orders, and track store-specific analytics.
-3. **Driver (Mobile PWA):** Mobile-first application designed with large tap targets. Supports **offline mode** to mark deliveries as complete even in areas with zero network coverage (auto-syncs when online).
-4. **Loader (Mobile PWA):** Mobile-optimized interface for warehouse staff to scan/update loading statuses efficiently.
-
-## 📁 Repository Structure
-```text
-PerZeus_WaypointOMS/
-│
-├── frontend/                   # React + Tailwind (Vite) Application
-│   ├── src/
-│   │   ├── components/         # Reusable UI elements
-│   │   ├── pages/              # Persona-specific modules (driver, loader, etc.)
-│   │   └── services/           # API integration logic
-│   └── package.json
-│
-└── backend/                    # Spring Boot + MongoDB (Coming Soon)
-```
-## ⚙️ Local Setup Instructions
-**Prerequisites
-* Node.js (v18+)
-* Java (v17+)
-* Maven
-* MongoDB (Local or Atlas)
-
-## Running the Frontend
-Clone the repository:
-
-```text
-git clone [https://github.com/didulaseneth/PerZeus_WaypointOMS.git](https://github.com/didulaseneth/PerZeus_WaypointOMS.git)
+```bash
+cd waypoint-unified
+docker compose up --build
 ```
 
-Navigate to the frontend directory:
+1. Open **http://localhost:5173/login**
+2. Sign in with a role account
+3. You are redirected to that role’s system automatically
 
-```text
-cd PerZeus_WaypointOMS/frontend
+### Demo credentials
+
+| Role | Username | Password |
+|------|----------|----------|
+| Dispatcher | `dispatcher` | `dispatch123` |
+| Store Manager | `out001` | `store123` |
+| Loader | `loader01` | `loader123` |
+| Driver | `driver001` | `driver123` |
+
+---
+
+## Ports
+
+| Service | Port |
+|---------|------|
+| Unified login + Dispatcher UI | 5173 |
+| OMS API (Spring) | 8080 |
+| Driver system | 3000 (API 4000) |
+| Store Manager system | 3001 (API 4001) |
+| Loader system | 3002 (API 4002) |
+| MongoDB | 27017 |
+
+---
+
+## Why you previously saw OMS Loader/Driver/Store pages
+
+The first merge used the **OMS multi-role SPA** for every role (same shell, different routes).  
+That is still available at `/loader`, `/driver`, `/store-manager` on port 5173 if you navigate there manually.
+
+**Now**, after a successful login:
+
+- **Dispatcher** stays in the OMS UI  
+- **Loader / Driver / Store Manager** are sent to their **dedicated apps** (the original projects), with SSO query params so those apps skip their own login screens.
+
+---
+
+## Rebuild after pulling this update
+
+```bash
+docker compose down
+docker compose up --build
 ```
 
-Install dependencies:
+The frontend image must be rebuilt so the new redirect logic is included.
 
-```text
-npm install
+
+---
+
+## Backend data & allocation
+
+Seed data is generated from the official competition CSVs in `oms/docs/data/`.
+
+- **85 peak-day orders (S1)**, **60 vehicles**, **120 outlets**, district travel times, service allowances
+- `AllocationEngine.java` is a rule-for-rule port of `oms/docs/check_allocation.py`
+- After first boot with an old Mongo volume, reset data:
+
+```bash
+curl -X POST http://localhost:8080/api/seed/reset
 ```
 
-Start the development server:
-
-```text
-npm run dev
-```
-
-Access the application:
-Open http://localhost:5173 in your browser. Use the provided dev-bypass buttons on the landing page to preview different persona views.
-
-Built with ❤️ by Team PerZeus for the Tech-Triathlon Hackathon.
+Then open the dispatcher, run **Auto-allocate** / **Re-plan all**, and **Validate** / **Export CSV**.
+See `oms/docs/BACKEND_DATA.md` for full details.
