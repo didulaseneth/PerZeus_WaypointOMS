@@ -56,7 +56,7 @@ docker compose up
 
 ## 🔑 Seeded Account Details
 Use the following credentials to test the application across the four distinct user roles.
-Role,Username / Email,Password
+
 | Role | Username | Password |
 |------|----------|----------|
 | Dispatcher | `dispatcher` | `dispatch123` |
