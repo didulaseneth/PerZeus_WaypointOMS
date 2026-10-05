@@ -11,7 +11,7 @@ To tackle real-world supply chain challenges like blind spots and network drops,
 We utilize a **Monorepo Architecture** to house both our frontend and backend, enabling rapid development and streamlined deployments during the hackathon.
 
 **Frontend:**
-* **React.js (Vite):** Fast, modern UI development.
+* **React.js (Vite):** Fast, modern UI development. 
 * **TailwindCSS:** Rapid, utility-first styling for mobile-responsive designs.
 * **React Router:** Role-based route guarding.
 * **PWA / Service Workers:** Offline caching and background synchronization.
